@@ -2,7 +2,7 @@ function App() {
   return (
     <div>
       <h2>Hello Hello Hello!</h2>
-      <p>Let's test some GitHub Actions</p>
+      <p>This def shouldn't pass tests</p>
     </div>
   );
 }
