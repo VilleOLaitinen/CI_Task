@@ -1,0 +1,25 @@
+name: pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      -uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '19'
+      - name: Install dependencies
+        run: npm install
+      - name: Testing the react components
+        run: npm test
+      - name: Abort pull request if tests fail
+        run: |
+          if [ ${{ job.status }} == 'failure' ]; then
+            echo "Tests failed. Pull request aborted."
+            exit 1
+          fi
