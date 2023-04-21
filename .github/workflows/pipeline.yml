@@ -3,13 +3,13 @@ name: pipeline
 on:
   push:
     branches:
-      - main
+      - '*'
   pull_request:
     branches: [main]
     types: [opened, synchronize]
 
 jobs:
-  testing:
+  testing and linting:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,6 +18,9 @@ jobs:
           node-version: '19'
       - name: Install dependencies
         run: npm install
+        working-directory: hello-ci
+      - name: Linting the code
+        run: npm run lint
         working-directory: hello-ci
       - name: Testing the react components
         run: npm test
