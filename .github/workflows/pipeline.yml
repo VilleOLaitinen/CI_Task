@@ -18,8 +18,10 @@ jobs:
           node-version: '19'
       - name: Install dependencies
         run: npm install
+        working-directory: CI_Task/hello-ci
       - name: Testing the react components
         run: npm test
+        working-directory: CI_Task/hello-ci
       - name: Abort pull request if tests fail
         run: |
           if [ ${{ job.status }} == 'failure' ]; then
