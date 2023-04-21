@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  testing and linting:
+  testing-and-linting:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
