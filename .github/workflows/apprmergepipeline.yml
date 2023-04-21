@@ -1,0 +1,30 @@
+name: approved merge pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+
+    if: github.event.pull_request.merged == true
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '19'
+      - name: Install dependencies
+        run: npm install
+        working-directory: hello-ci
+      - name: Testing the react components
+        run: npm test
+        working-directory: hello-ci
+      - name: Cancel merge if test fail
+        uses: styfle/cancel-workflow-action@0.8.0
+        if: failure()
